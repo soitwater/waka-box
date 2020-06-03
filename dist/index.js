@@ -860,8 +860,11 @@ module.exports = (function(e, t) {
         const { name: i, percent: s, text: o } = n;
         const a = [
           i.padEnd(11),
-          o.padEnd(14),
-          generateBarChart(s, 21),
+          o
+            .replace(/hrs/g, "h")
+            .replace(/mins/g, "m")
+            .padEnd(9),
+          generateBarChart(s, 16),
           String(s.toFixed(1)).padStart(5) + "%"
         ];
         r.push(a.join(" "));
@@ -872,7 +875,7 @@ module.exports = (function(e, t) {
         await c.gists.update({
           gist_id: o,
           files: {
-            [e]: { filename: `📊 Over the Last 7 days`, content: r.join("\n") }
+            [e]: { filename: `📊 Over the Last 7 Days`, content: r.join("\n") }
           }
         });
       } catch (e) {
